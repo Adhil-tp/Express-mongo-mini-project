@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration Form</title>
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="/css/signup.css">
+</head>
+
+<body>
+    <% if (error?.duplicateFound) { %>
+        <div class="duplicate-error">
+            <%=error.duplicateFound %>
+        </div>
+        <% } %>
+            <div class="container">
+                <div class="login form">
+                    <header>Sign Up</header>
+                    <form action="/signup" method="post" class="sign-up">
+                        <div class="field">
+                            <input type="text" placeholder="Enter your name" name="userName" class="userName">
+                            <% if (error?.nameError) { %>
+                                <div class="server-error">
+                                    <%= error.mailError %>
+                                </div>
+                                <% } else{ %>
+                                    <div class="error-label name-error">name must contain minimum 3 letters</div>
+                                    <% } %>
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="Enter your email" name="userMail" class="userMail">
+                            <% if (error?.mailError) { %>
+                                <div class="server-error">
+                                    <%=error.mailError %>
+                                </div>
+                                <% } else { %>
+                                    <div class="error-label email-error">This field must be in a email format</div>
+                                    <% } %>
+                        </div>
+                        <div class="field">
+                            <input type="password" placeholder="Enter your password" name="userPassword"
+                                class="userPassword">
+                            <% if (error?.passError) { %>
+                                <div class="server-error">
+                                    <%= error.passError %>
+                                </div>
+                                <% } else {%>
+                                    <div class="error-label pass-error">Must contain 1 Upper case, 1 lower case, 1
+                                        number, 1
+                                        special charater
+                                    </div>
+                                    <% } %>
+                        </div>
+                        <div class="field">
+                            <input type="password" placeholder="Confirm your password" name="confirmPass"
+                                class="confirmPass">
+                            <% if (error?.cPassError) { %>
+                                <div class="server-error">
+                                    <%=error.cPassError%>
+                                </div>
+                                <% } %>
+                                    <div class="error-label c-pass-error">must match the previous field</div>
+                        </div>
+                        <div class="button-field">
+                            <a href="#">Forgot password?</a>
+                            <button type="submit" class="signup-button" value="Login">Login</button>
+                        </div>
+                        <div class="signup">
+                            <span class="signup">Already have an account?
+                                <a href="/login">Login</a>
+                            </span>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+            <script src="js/signup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    gap: 30px;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 400px ;
+    height: 300px;
+    background-color: mediumaquamarine;
+    
+}
+
+a{
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: mediumaquamarine;
+}
+
+.welcome{
+    text-align: center;
+    color: paleturquoise;
+}
