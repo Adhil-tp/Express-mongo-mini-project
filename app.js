@@ -1,6 +1,7 @@
 const express = require('express');
 const userRouter = require('./routes/userRouter')
 const adminRouter = require('./routes/adminRouter')
+const commonRouter = require('./routes/commonRouter')
 const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const path = require('path');
@@ -29,7 +30,7 @@ mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('database connected successfully..'))
     .catch(err => console.error(`error connecting database ${err.message}`))
 
-
+app.use('/logout' , commonRouter)
 app.use('/admin', adminRouter)
 app.use('/', userRouter)
 
