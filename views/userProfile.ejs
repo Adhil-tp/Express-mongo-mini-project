@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/userProfile.css">
 </head>
+
 <body>
-    <h1>welcome to your profile</h1>
+    <div class="container">
 
-    <a href="/logout">Logout</a>
+        <div>
+            <h1>welcome to your profile</h1>
 
+            <a href="/logout">Logout</a>
+            <a href="/showProfile" class="profile">see profile</a>
+
+        </div>
+
+        <div>
+            <div class="profile">
+                <% if (loggedUserData) { %>
+                    <h1>
+                        Hello <%= loggedUserData.userName %>
+                    </h1>
+                    <p>
+                        <%= loggedUserData.userMail %>
+                    </p>
+
+                    <a href="/showDetails">show details</a>
+
+                    <% if (detailsExists) { %>
+                        <div class="form-container">
+                
+                            <form class="user-details-tab" action="/updateUserDetails" method="put">
+                                <input type="text" name="age" placeholder="Enter your age" value=" <%=userDetails?.age %>" >
+                                <input type="text" name="city" placeholder="Enter your city" value="<%= userDetails?.city %>">
+                                <input type="text" name="street" placeholder="Enter your street" value="<%= userDetails?.street%>">
+                                <input type="text" name="pin" placeholder="Enter your pin" value="<%= userDetails?.pin %>">
+                                <input type="text" name="houseNumber" placeholder="Enter your house number" value="<%= userDetails?.houseNumber %>">
+                                <button class="submit-button" type="submit">Update</button>
+                            </form>
+                        </div>
+                    <% } %>
+
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+    
 </body>
+
 </html>

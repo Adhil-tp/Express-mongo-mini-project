@@ -1,6 +1,6 @@
 const commonController = {
     logoutUser : (req , res ) => {
-        req.session.isLoggedIn = false
+        req.session.destroy()
         res.redirect('/login')
     }
 }

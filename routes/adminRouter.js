@@ -6,10 +6,11 @@ const middleWare = require('../middlewares/middleware')
 
 adminRouter.use(middleWare.adminCheck)
 
-
 adminRouter.get('/adminPage' , adminController.adminPage )
 
 adminRouter.get('/adminContact' , adminController.adminContact)
+
+
 
 
 module.exports = adminRouter
