@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logout-button {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    color: wheat;
+    background-color: rgb(253, 93, 93);
+    padding: 10px;
+    border-radius: 10px;
+}

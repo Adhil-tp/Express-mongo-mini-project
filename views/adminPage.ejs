@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/adminPage.css">
 </head>
 <body>
-    <h1>Welcome as admin</h1>
-    <a href="/logout">Logout</a>
+    <h1>Welcome <%= adminDetails?.userName %> as <%= adminDetails?.role %></h1>
+    <a class="logout-button" href="/logout">Logout</a>
 </body>
 </html>

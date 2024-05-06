@@ -4,19 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Profile Update</title>
+    <link rel="stylesheet" href="/css/userDetailForm.css">
 </head>
 
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-        <form action="/updateProfile" method="post" style="display: flex;  flex-direction: column; width: 400px; gap: 20px;">
+<body>
+        <form action="/updateProfile" method="post" class="update-form">
             <input type="text" name="age" placeholder="Enter your age" >
             <input type="text" name="city" placeholder="Enter your city">
             <input type="text" name="street" placeholder="Enter your street">
             <input type="text" name="pin" placeholder="Enter your pin">
             <input type="text" name="houseNumber" placeholder="Enter your house number">
     
-            <button type="submit">Submit</button>
+            <button type="submit" class="submit">Submit</button>
         </form>
+
+        <a href="/cancelFormUpdate" class="cancel">Cancel</a>
 </body>
 
 </html>

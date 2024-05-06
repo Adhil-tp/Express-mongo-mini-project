@@ -19,9 +19,11 @@ userRouter.get('/login', middleWare.loggedInCheck , userController.getLoginPage)
 
 userRouter.use(middleWare.userCheck)
 
+userRouter.get('/cancelFormUpdate' , userController.cancelFormUpdate)
+
 userRouter.get('/showDetails' , userController.showDetails)
 
-userRouter.put('/updateUserDetails' , userController.updateUserDetails)
+userRouter.post('/updateUserDetails' , userController.updateUserDetails)
 
 userRouter.post('/updateProfile' , userController.updateUserProfile)
 

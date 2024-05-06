@@ -18,16 +18,16 @@ module.exports = userController = {
             async function checkUserExist(name, email) {
                 let findingUser = await users.find({ $or: [{ userName: name }, { userMail: email }] }).count()
                 // let findingUser = await users.aggregate([{ $project: { $cont: { if: { $eq: ["$userName", name] } }, then: { name: 1 } } }])
-                console.log(findingUser)
+                // console.log(findingUser)
                 return findingUser > 0
             }
 
             checkUserExist(userName, userMail).then(async (result) => {
-                console.log(result)
+                // console.log(result)
                 req.session.error = {}
                 if (result) {
-                    console.log('user duplicate found')
-                    console.log(result)
+                    // console.log('user duplicate found')
+                    // console.log(result)
                     req.session.error.duplicateFound = "user with same credential exists"
                     return res.redirect('/signup')
                 }
@@ -35,33 +35,33 @@ module.exports = userController = {
 
                 if (userName.length <= 2) {
                     req.session.error.nameError = "name must contain minimum 3 letters"
-                    console.log('name is wrong')
+                    // console.log('name is wrong')
                     // return res.redirect("/signup")
                 }
                 if (!emailRegex.test(userMail)) {
                     req.session.error.mailError = "This field must be in a email format"
-                    console.log('email is wrong')
+                    // console.log('email is wrong')
                     // return res.redirect("/signup")
                 }
                 if (!passRegex.test(userPassword)) {
-                    console.log('pass is wrong')
+                    // console.log('pass is wrong')
                     req.session.error.passError = "Must contain 1 Upper case, 1 lower case, 1 number, 1 special charater"
                     // return res.redirect("/signup")
                 }
                 if (userPassword != confirmPass) {
-                    console.log('c pass is wrong')
+                    // console.log('c pass is wrong')
                     req.session.error.cPassError = "must match the previous field"
                     // return res.redirect("/signup")
                 }
 
                 console.log('error array', Object.keys(req.session.error))
                 if (Object.keys(req.session.error).length > 0) {
-                    console.log('redirecting to signup')
+                    // console.log('redirecting to signup')
                     return res.redirect('/signup')
                 }
                 req.body.userName = req.body.userName.toLowerCase().trim()
                 req.body.userMail = req.body.userMail.toLowerCase().trim()
-                console.log('reached the adding area')
+                // console.log('reached the adding area')
                 let newUser = new users(req.body)
                 await newUser.save()
                 if (newUser) {
@@ -81,7 +81,7 @@ module.exports = userController = {
 
     // Login user
     loginUser: (req, res) => {
-        console.log('this is body', req.body)
+        // console.log('this is body', req.body)
         let { loginCredential, loginPassword } = req.body
         async function findUser(cred) {
             const foundedUser = await users.findOne({ $or: [{ userName: { $regex: new RegExp(`^${cred}$`, 'i') } }, { userMail: { $regex: new RegExp(`^${cred}$`, 'i') } }] })
@@ -93,11 +93,11 @@ module.exports = userController = {
         findUser(loginCredential.trim()).then(data => {
             // console.log('db type' , typeof data[0].userPassword)
             // console.log('name ' ,data[0])
-            console.log(data._id)
+            // console.log(data._id)
             req.session.error = {}
             if (data.length == 0) {
                 req.session.error.userNotFound = "user with the given details doesn't found"
-                console.log(data)
+                // console.log(data)
                 return res.redirect('/login')
             } else {
                 // if()
@@ -105,9 +105,11 @@ module.exports = userController = {
                     // console.log('password correct')
                     req.session.isLoggedIn = true
                     // checking if the logged one is admin or user
-                    console.log('logged in as', data.role)
+                    // console.log('logged in as', data.role)
                     if (data.role == 'admin') {
                         req.session.isAdmin = true
+                        console.log('admin id : ' , data._id)
+                        req.session.adminId = data._id
                         return res.redirect('/admin/adminPage')
                     } else {
                         // req.session.isAdmin = false
@@ -156,7 +158,7 @@ module.exports = userController = {
         try {
             let error = req.session.error
             req.session.error = undefined
-            console.log('reached the signup')
+            // console.log('reached the signup')
             res.render('signup', { title: "signup", error })
         } catch (err) {
             console.log('session error ' + err.message)
@@ -166,12 +168,12 @@ module.exports = userController = {
     //get user profile
     getUserProfile: async (req, res) => {
         try {
-            console.log('this is user id', req.session.userId)
-            console.log('detail found', req.session.detailsExists)
+            // console.log('this is user id', req.session.userId)
+            // console.log('detail found', req.session.detailsExists)
             const loggedUserData = await users.findOne({ _id: req.session.userId })
-            console.log('logged user data',loggedUserData)
+            // console.log('logged user data',loggedUserData)
             if (req.session?.detailsExists) {
-                let userDetails = await users.aggregate([{ $match: { _id : mongoose.Types.ObjectId.createFromHexString(req.session.userId) } },
+                let userDetails = await users.aggregate([{ $match: { _id: mongoose.Types.ObjectId.createFromHexString(req.session.userId) } },
                 { $lookup: { from: "details", localField: "detail", foreignField: "_id", as: "details" } },
                 { $replaceRoot: { newRoot: { $arrayElemAt: ["$details", 0] } } }])
                 // console.log('this is user details',userDetails)
@@ -181,7 +183,7 @@ module.exports = userController = {
                 return res.render('userProfile', { loggedUserData, userDetails, detailsExists })
             }
             // console.log('this is logged user data ', loggedUserData )
-            res.render('userProfile', { loggedUserData ,  detailsExists : req.session.detailsExists })
+            res.render('userProfile', { loggedUserData, detailsExists: req.session.detailsExists })
             // console.log('user data which is passed from the login page'  , req.session.user)
         } catch (err) {
             console.log('cannot fetch user ', err.message)
@@ -198,19 +200,19 @@ module.exports = userController = {
         try {
             // console.log('user data is this ',req.session.user)
             const checkingUser = await users.findOne({ _id: req.session.userId })
-            console.log('checked user ' , checkingUser)
+            // console.log('checked user ', checkingUser)
             if (!checkingUser?.detail) {
                 req.session.error = {}
-                console.log('detail not found')
+                // console.log('detail not found')
                 req.session.detailsExists = false
                 return res.render('userDetailsForm')
             } else {
                 req.session.detailsExists = true
-                console.log('detail found')
+                // console.log('detail found')
                 // const userDetails = await users.aggregate([{$match : }])
                 return res.redirect('/userProfile')
             }
-            console.log(checkingUser)
+            // console.log(checkingUser)
         } catch (err) {
             console.log(err.message)
         }
@@ -218,7 +220,7 @@ module.exports = userController = {
 
     updateUserProfile: async (req, res) => {
         const { age, street, city, houseNumber, pin } = req.body
-        console.log(age, street, city, houseNumber, pin)
+        // console.log(age, street, city, houseNumber, pin)
         const userDetails = {
             age, street, city, houseNumber, pin
         }
@@ -235,26 +237,27 @@ module.exports = userController = {
     },
 
 
-    updateUserDetails : (req , res) => {
-        const user = users.findOne({_id : req.session.userId})
-        console.log(user)
-        res.send('hoy' , user.userName)
+    updateUserDetails: async (req, res) => {
+        const user = await users.findOne({_id: req.session.userId})
+        const { city, street, pin, houseNumber, age } = req.body
+        const userDetailReference = user.detail
+        // console.log('this is ref to detail ', userDetailReference)
+        const updatedUserDetail = await details.updateOne({ _id: userDetailReference },
+            { $set: { city: city, street: street, age: age, houseNumber: houseNumber, pin: pin } })
+    
+        // console.log('user details from the update details tab ', user)
+        res.redirect('/userProfile')
+    },
+
+
+    cancelFormUpdate : (req , res) => {
+        try{
+            res.redirect('/userProfile')
+        }catch(err) {
+            console.log(err.message)
+        }
     }
 
 
 }
 
-
-
-
-
-
-
-
-// function middle (){
-//     if(!isLoggedIn){
-//         next()
-//     }else{
-//         res.redirect('/home')
-//     }
-// }

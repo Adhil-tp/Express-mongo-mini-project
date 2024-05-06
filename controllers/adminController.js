@@ -1,11 +1,15 @@
 const express = require('express')
+const {users , details} = require('../model/User')
 
 
 module.exports = adminController =  {
 
-    adminPage : (req , res) =>{
+    adminPage : async(req , res) =>{
         try{
-            res.render('adminPage')
+            const adminId = req.session.adminId
+            const adminDetails = await users.findOne({_id : adminId}) 
+            console.log(adminDetails)
+            res.render('adminPage' , {adminDetails})
         }catch(err){
             console.log(err.message)
         }

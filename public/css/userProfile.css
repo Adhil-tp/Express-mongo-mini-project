@@ -1,18 +1,19 @@
-*{
+* {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 
-body{
+body {
     width: 100vw;
     height: 100vh;
     /* position: relative; */
 }
 
-.container{
-    /* position: absolute; */
+.container {
+    position: relative;
     background-color: white;
     width: auto;
     height: 100%;
@@ -21,26 +22,95 @@ body{
     align-items: center;
 }
 
-.user-details-tab{
+.user-details-tab {
     display: flex;
     /* position: absolute; */
     flex-direction: column;
     gap: 20px;
 }
 
-.profile{
+.profile {
     display: flex;
     gap: 20px;
     flex-direction: column;
 }
 
-    /* .form-container{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        right: 0;
-    } */
+.form-container {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color:rgba(0, 0, 0, 0.277);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+.update-detail-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 20px;
+    background-color: rgb(168, 213, 213);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.update-detail-form input , .update-detail-form button{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 5px;
+    height: 35px;
+    border: none;
+border-radius: 5px;
+}
+
+.logout-button{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    color: wheat;
+    background-color: rgb(253, 93, 93);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.welcome-page{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+a{
+    text-decoration: none;
+}   
+
+.details-button , .showUpdateForm{
+    background-color: rgb(199, 253, 240);
+    height: 35px;
+    width: 120px;
+    /* text-align: center; */
+    padding: 7px;
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+    border: none;
+    justify-content: center;
+    color: black;
+    word-spacing: 3px;
+}
+.cancel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: rgb(251, 58, 58);
+    text-decoration: none;
+    color: white;
+    width: 150px;
+    height: 35px;
+}
+
